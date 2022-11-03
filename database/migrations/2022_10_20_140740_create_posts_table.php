@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-            $table->string('user');
+            $table->string('title');
             $table->string('content');
             $table->integer('likes')->default('1');;
             $table->integer('dislikes')->default('0');;
