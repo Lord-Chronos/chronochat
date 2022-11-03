@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('title');
             $table->string('content');
-            $table->integer('likes')->default('1');;
-            $table->integer('dislikes')->default('0');;
-            $table->integer('reposts')->default('0');;
+            $table->integer('likes')->default('1');
+            $table->integer('dislikes')->default('0');
+            $table->integer('reposts')->default('0');
 
         });
     }
