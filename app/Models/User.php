@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     public function post(){
-        return $this->hasMany(Posts::class);
+        return $this->hasMany(Post::class);
     }
     public function comment(){
         return $this->hasMany(Comment::class);
