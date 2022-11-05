@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -16,7 +15,7 @@ class User extends Authenticatable
         return $this->hasMany(Posts::class);
     }
     public function comment(){
-        return $this->hasMany(Comments::class);
+        return $this->hasMany(Comment::class);
     }
     /**
      * The attributes that are mass assignable.
