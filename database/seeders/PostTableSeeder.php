@@ -15,14 +15,11 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        
         $p = new Post;
         $p->user_id = "1";
         $p->title = "Dog";
         $p->content = "Look at my dog";
         $p->save();
-        
-        Post::factory()->count(10)->create();
    }
 }
 

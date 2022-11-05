@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Comment;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -21,6 +24,7 @@ class UserTableSeeder extends Seeder
         $u->password = "password";
         $u->save();
         
-        User::factory()->count(5)->create();
+        User::factory()->count(5)->has(Post::factory()->count(3))->create();
+
     }
 }
