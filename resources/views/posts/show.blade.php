@@ -1,11 +1,9 @@
 @extends('layouts.basic')
-@section('title', 'Posts')
+@section('title', ($post->title))
 @section('content')
-<h1>Posts for the site:</h1>
+<h1>Information for post {{ $post->id }}:</h1>
 <br>
 <ul>
-    @foreach ($posts as $post)
-
     <li> {{$post->title }} <b>Posted by {{$post->user->name}} on {{$post->created_at}}</b></li>
          {{$post->content }}
     <br>
@@ -19,7 +17,6 @@
     <br>
     <br>
 
-    @endforeach
 
 </ul>
 
