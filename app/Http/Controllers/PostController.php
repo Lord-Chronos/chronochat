@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Comments;
-
+use Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -29,7 +29,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -40,8 +40,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd(request()->all());
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+        ]);
+
+        $p = new Post;
+        $p->title =  $request['title'];
+        $p->content =  $request['content'];
+        $p->user_id = Auth::id(); 
+        $p->save();
+
+        session()->flash('message', 'Post was created.');
+        return redirect()->route('posts.index');
+        //return "Pased Validation";
+        //return redirect('/posts')->with('success', 'Game is successfully saved');
     }
+    
 
     /**
      * Display the specified resource.
