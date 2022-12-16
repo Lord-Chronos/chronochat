@@ -2,8 +2,7 @@
 @section('title', 'Ediy Post')
 
 @section('content') <div class="row">
-        <div class="col-sm-8 offset-sm-2">
-            <h1 class="display-3">Editing Post </h1>
+            <h1>Editing Post </h1>
 
             @if ($errors->any())
                 <div class="alert alert-danger">
@@ -30,6 +29,5 @@
                 <a href="{{ route('posts.index') }}">Cancel</a>
 
 
-        </div>
     </div>
 @endsection
