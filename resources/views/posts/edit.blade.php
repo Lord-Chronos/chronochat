@@ -1,5 +1,5 @@
 @extends('layouts.basic')
-@section('title', 'Ediy Post')
+@section('title', 'Edit Post')
 
 @section('content') <div class="row">
             <h1>Editing Post </h1>

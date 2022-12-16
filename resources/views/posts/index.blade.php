@@ -16,7 +16,7 @@
     <br>
     <ul>
         @foreach ($posts as $post)
-            <li> {{ $post->title }} <b>Posted by {{ $post->user->name }} on {{ $post->created_at }}</b></li>
+            <li> <b>{{ $post->title }}</b> Posted by <b>{{ $post->user->name }}</b> on {{ $post->created_at }}</li>
             {{ $post->content }}
             @if ($post->user_id == Auth::id())
                 <p> Yours {{ $post->user->name }}</p>
