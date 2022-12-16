@@ -44,12 +44,14 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:255',
+            'user_id' => 'required',
         ]);
 
         $p = new Post;
         $p->title =  $request['title'];
         $p->content =  $request['content'];
-        $p->user_id = Auth::id(); 
+        // $p->user_id = Auth::id(); 
+        $p->user_id = $request['user_id'];
         $p->save();
 
         session()->flash('message', 'Post was created.');
@@ -80,7 +82,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -92,7 +95,21 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $request->request->add(['user_id' => Auth::id()]);
+        $request->request->add(['user_id_old' => $post->user_id]);
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required|max:255',
+            'user_id' => 'required|same:user_id_old',
+        ]);
+        $post->title =  $request['title'];
+        $post->content =  $request['content'];
+        // $p->user_id = Auth::id(); 
+        //$p->user_id = $request['user_id'];
+        $post->save();
+        session()->flash('message', 'Post was edited.');
+        return redirect()->route('posts.index');
     }
 
     /**
