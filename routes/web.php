@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 
 use Inertia\Inertia;
 
@@ -38,13 +39,13 @@ Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edi
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
-Route::get('/comment', [CommentController::class, 'index'])->name('comment.index');
-Route::get('/comment/create', [CommentController::class, 'create'])->name('comment.create');
-Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
-Route::get('/comment/{id}', [CommentController::class, 'show']);
-Route::get('/comment/{id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
-Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comment.update');
-Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
+Route::get('/comments', [CommentController::class, 'index'])->name('comments.index');
+Route::get('/comments/create', [CommentController::class, 'create'])->name('comments.create');
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::get('/comments/{id}', [CommentController::class, 'show']);
+Route::get('/comments/{id}/edit', [CommentController::class, 'edit'])->name('comments.edit');
+Route::put('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
 require __DIR__.'/auth.php';

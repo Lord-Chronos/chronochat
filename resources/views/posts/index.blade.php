@@ -20,7 +20,7 @@
             {{ $post->content }}
             @if ($post->user_id == Auth::id())
                 <p> Yours {{ $post->user->name }}</p>
-                <form method="POST" action="{{ route('posts.destroy', ['id' => $post->id]) }}">
+                <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit">Delete</button>
@@ -33,10 +33,11 @@
                 @foreach ($post->comment as $comment)
                     <li> <b>{{ $comment->user->name }} replied:</b> {{ $comment->content }}</li>
                 @endforeach
-            <form method="comment" action="{{ route('comment.store') }}">
+            <form method="post" action="{{ route('comments.store') }}">
                 @csrf
                 <input type="text" name="content" value={{ old('content') }}>
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                <input type="hidden" name="post_id" value="{{ $post->id }}">
                 <input type="submit" value="Submit">
             </form>
             </ol>
