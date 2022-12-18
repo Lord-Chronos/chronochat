@@ -33,7 +33,14 @@
                 @foreach ($post->comment as $comment)
                     <li> <b>{{ $comment->user->name }} replied:</b> {{ $comment->content }}</li>
                 @endforeach
+            <form method="comment" action="{{ route('comment.store') }}">
+                @csrf
+                <input type="text" name="content" value={{ old('content') }}>
+                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                <input type="submit" value="Submit">
+            </form>
             </ol>
+
             <br>
             <br>
         @endforeach

@@ -37,7 +37,14 @@ Route::get('/posts/{id}', [PostController::class, 'show']);
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
-// Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+
+Route::get('/comment', [CommentController::class, 'index'])->name('comment.index');
+Route::get('/comment/create', [CommentController::class, 'create'])->name('comment.create');
+Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
+Route::get('/comment/{id}', [CommentController::class, 'show']);
+Route::get('/comment/{id}/edit', [CommentController::class, 'edit'])->name('comment.edit');
+Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comment.update');
+Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment.destroy');
 
 
 require __DIR__.'/auth.php';
