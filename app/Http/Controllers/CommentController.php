@@ -49,7 +49,8 @@ class CommentController extends Controller
         $c->save();
 
         session()->flash('message', 'Comment was created.');
-        return redirect()->route('posts.index');
+        // return redirect()->route('posts.index');
+        return redirect()->back();
     }
 
     /**
