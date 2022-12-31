@@ -1,7 +1,8 @@
 @extends('layouts.basic')
-@section('title', 'Posts')
+@section('title', 'Posts - Chronochat')
 @section('content')
     <h1>Posts for the site:</h1>
+
     <a href="{{ route('posts.create') }}">Create Post on Seperate Page</a>
     <div style="display: flex;">
         <form method="post" action="{{ route('posts.store') }}">
@@ -13,10 +14,18 @@
             <a href="{{ route('posts.index') }}">Cancel</a>
         </form>
     </div>
+    {{ $posts->links() }}
+
     <br>
     <ul>
         @foreach ($posts as $post)
-            <li> <b>{{ $post->title }}</b> Posted by <b>{{ $post->user->name }}</b> on {{ $post->created_at }}</li>
+            <li>
+                <a href="{{ route('posts.show', $post->id) }}"><b>{{ $post->title }}</b></a>
+                Posted by
+                <a href="{{ route('users.show', $post->user_id) }}"><b>{{ $post->user->name }}</b></a>
+
+                on {{ $post->created_at }}
+            </li>
             {{ $post->content }}
             @if ($post->user_id == Auth::id())
                 <p> Yours {{ $post->user->name }}</p>
@@ -25,27 +34,33 @@
                     @method('DELETE')
                     <button type="submit">Delete</button>
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
-
             @endif
             <br>
 
             <ol>
                 @foreach ($post->comment as $comment)
-                    <li> <b>{{ $comment->user->name }} replied:</b> {{ $comment->content }}</li>
+                    <li> <a href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
+                        <b> replied:</b>
+                        {{ $comment->content }}
+
+
+                    </li>
                 @endforeach
-            <form method="post" action="{{ route('comments.store') }}">
-                @csrf
-                <input type="text" name="content" value={{ old('content') }}>
-                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                <input type="hidden" name="post_id" value="{{ $post->id }}">
-                <input type="submit" value="Submit">
-            </form>
+                <form method="post" action="{{ route('comments.store') }}">
+                    @csrf
+                    <input type="text" name="content" value={{ old('content') }}>
+                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                    <input type="hidden" name="post_id" value="{{ $post->id }}">
+                    <input type="submit" value="Submit">
+                </form>
             </ol>
 
             <br>
             <br>
         @endforeach
-
     </ul>
+    </ul>
+
+
 
 @endsection

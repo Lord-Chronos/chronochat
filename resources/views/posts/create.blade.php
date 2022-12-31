@@ -1,6 +1,6 @@
 @extends('layouts.basic')
 
-@section('title', 'Create Post')
+@section('title', 'Create Post - Chronochat')
 
 @section('content')
     <h1>Form for Posts:</h1>

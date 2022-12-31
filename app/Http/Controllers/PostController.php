@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Comments;
+use App\Models\Comment;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         
         $posts = Post::get()->sortByDesc('created_at');
-        
+        $posts = Post::paginate(15);
         return view('posts.index', ['posts' => $posts]);
     }
 
