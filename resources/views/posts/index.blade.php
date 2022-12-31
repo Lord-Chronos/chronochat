@@ -14,7 +14,6 @@
             <a href="{{ route('posts.index') }}">Cancel</a>
         </form>
     </div>
-    {{ $posts->links() }}
 
     <br>
     <ul>
@@ -60,6 +59,7 @@
         @endforeach
     </ul>
     </ul>
+    {{ $posts->links() }}
 
 
 

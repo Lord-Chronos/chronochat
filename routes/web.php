@@ -1,13 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
-
-use Inertia\Inertia;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,18 +16,14 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    return view('welcome');
 });
 
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/dashboard', [PostController::class, 'index'])->name('posts.index');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
@@ -56,7 +48,5 @@ Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');;
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-
-
 
 require __DIR__.'/auth.php';
