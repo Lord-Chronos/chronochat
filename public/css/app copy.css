@@ -50,28 +50,7 @@ body {
 	overflow: overlay;
 	margin: 0;
 }
-form {
-	width: 400px;
 
-  }
-  
-  input[type="text"] {
-	display: block;
-	width: 400px;
-	margin: 0 0 20px;
-	padding: 8px 12px 10px 12px;
-	border: 1px solid rgba(0,0,0,.5);
-	background: rgba(0,0,0,.25);
-	color: var(--text-color-a);
-
-  }
-
-  input, label{
-	display: inline-block;
-	vertical-align: middle;
-	margin: 10px 0;
-  }
-  
 #page-content {
 	margin-top: var(--header-height);
 	padding: var(--background-padding);
@@ -611,7 +590,6 @@ header #search-bar {
 #results-list {
 	display: flex;
 	flex-direction: column;
-	flex: 0.5 0 var(--page-width);
 	gap: 30px;
 }
 
@@ -713,6 +691,7 @@ header #search-bar {
 
 /* #region POSTS */
 
+#posts-list,
 #results-list {
 	max-width: var(--page-width);
 	flex: 0 0 var(--page-width);
@@ -1265,7 +1244,6 @@ body.fullscreen .post-footer {
 		flex: none;
 		max-width: none;
 		width: 100%;
-		flex: 0.5 0 var(--page-width);
 	}
 
 	#post-viewer {
