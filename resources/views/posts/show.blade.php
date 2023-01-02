@@ -1,6 +1,8 @@
 @extends('layouts.basic')
 @section('title', $post->title)
 @section('content')
+@section('header', $post->id)
+
     <h1>Information for post {{ $post->id }}:</h1>
     <br>
     <ul>
@@ -8,7 +10,7 @@
             Posted by
             <a href="{{ route('users.show', $post->user_id) }}"><b>{{ $post->user->name }}</b></a>
             on {{ $post->created_at }}
-                        <br>
+            <br>
 
             {{ $post->content }}
             <ol>
