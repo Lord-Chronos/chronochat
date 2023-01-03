@@ -15,8 +15,10 @@
 
         <!-- Bootstrap CSS -->
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> --}}
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        {{-- @vite('resources/css/app.css') --}}
+        {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        @vite('public/css/app.css')
+        @livewireStyles
 
     </head>
 
@@ -52,6 +54,7 @@
     <!-- navigation bar ends here -->
 
     <body>
+    @livewireScripts
         <h1> @yield('header') </h1>
         <main id="page-content">
 
@@ -105,7 +108,7 @@
                 @yield('content')
             </div>
         </main>
+{{-- @include('layouts.footer') --}}
 
     </body>
-
     </html>

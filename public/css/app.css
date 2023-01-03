@@ -10,6 +10,7 @@
 	--background-color-a: rgb(0, 0, 0);
 	--background-color-b: rgb(10, 10, 10);
 	--background-color-c: rgb(25, 25, 25);
+	--background-color-d: rgb(43, 43, 43);
 
 	--purple-a: #dd00ff;
 	--purple-b: #b500d1;
@@ -155,7 +156,12 @@ a {
 	text-decoration: none;
 	transition: color 200ms ease-in-out;
 }
-
+.boxcomment {
+	background-color: var(--background-color-d);
+	padding: var(--background-padding);
+	border-radius: var(--border-radius-a);
+	overflow: hidden;
+}
 a:hover {
 	text-decoration: underline;
 }
@@ -1360,3 +1366,4 @@ body.fullscreen #page-content::-webkit-scrollbar {
 	background-color: #04AA6D;
 	color: white;
 }
+

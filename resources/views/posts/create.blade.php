@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>Form for Posts:</h1>
+            <div class="post box">
 
     <div style="display: flex;">
         <form method="post" action="{{ route('posts.store') }}">
@@ -14,6 +15,7 @@
             <input type="submit" value="Submit">
             <a href="{{ route('posts.index') }}">Cancel</a>
         </form>
+    </div>
     </div>
 
 @endsection

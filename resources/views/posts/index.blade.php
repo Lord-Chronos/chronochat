@@ -20,6 +20,7 @@
             </form>
         </div>
         <br>
+
         @foreach ($posts as $post)
             <div class="post box">
 
@@ -39,31 +40,43 @@
                     <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
                         @csrf
                         @method('DELETE')
-                        <button type="delete">Delete</button>
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
+                        <div class="grid grid-rows-1 grid-flow-col gap-0">
+                            <div><button class='button' type="delete">Delete Post</button></div>
+                            <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}"
+                                        class="btn btn-primary">Edit Post</a></button></div>
+                        </div>
                     </form>
                 @endif
                 <br>
 
+
                 <ol>
-                    <h2>Comments</h2>
+
+                    {{-- <h2>Comments</h2> --}}
                     @foreach ($post->comment as $comment)
-                        <li> <a href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
-                            <b> replied:</b>
-                            {{ $comment->content }}
-                        </li>
+                        <div class="post boxcomment">
+
+                            <li> <a
+                                    href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
+                                <b>:</b>
+                                {{ $comment->content }}
+                            </li>
+                        </div>
+                        <br>
                     @endforeach
+                    {{-- <livewire:counter /> --}}
                     <form method="post" action="{{ route('comments.store') }}">
                         @csrf
                         <input type="text" name="content" value={{ old('content') }}>
                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                         <input type="hidden" name="post_id" value="{{ $post->id }}">
-                        <input type="submit" value="Submit" style='display:inline'>
+                        <input type="submit" value="Comment" style='display:inline' class='button'>
                     </form>
 
                 </ol>
 
                 <br>
+
             </div>
 
             <br>
@@ -71,8 +84,13 @@
 
     </ul>
     </ul>
-    <div class="post box">
-        {{ $posts->links() }}
+    <div class="flex justify-between ...">
+        <div></div>
+        <div class="flex justify-between">{{ $posts->links('pagination::tailwind') }}</div>
+        <div></div>
     </div>
+
+    {{-- {{ $posts->links() }} --}}
+
 
 @endsection
