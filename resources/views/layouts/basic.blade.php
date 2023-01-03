@@ -5,21 +5,6 @@
 </head>
 
 <body>
-    @if ($errors->any())
-        <div>
-            Errors:
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    @if (session('message'))
-        <p><b>{{ session('message') }}</b></p>
-    @endif
-
 
     <head>
         <title>@yield('title')</title>
@@ -74,24 +59,49 @@
 
 
                 <div id="filter-list" class="box">
-                    <div class="filter">
-                        <a class="nav-link" href={{ route('posts.index') }}>Home</a>
+                    @if (Auth::check())
+                        <div class="filter">
+                            <a class="nav-link" href={{ route('posts.index') }}>Home</a>
+                        </div>
 
-                    </div>
-                    <div class="filter active">
-                        <a class="nav-link" href={{ route('users.show', Auth::id()) }}>User</a>
-                    </div>
+                        <div class="filter active">
+                            <a class="nav-link" href={{ route('users.show', Auth::id()) }}>User</a>
+                        </div>
 
-                    <div class="filter">
-                        <a class="nav-link" href={{ route('posts.create') }}>
-                            <p>Create Post</p>
-                        </a>
-
-
-                    </div>
-
+                        <div class="filter">
+                            <a class="nav-link" href={{ route('posts.create') }}>
+                                <p>Create Post</p>
+                            </a>
+                        </div>
+                    @else
+                        <div class="filter">
+                            <a class="nav-link" href={{ route('login') }}>
+                                <p>Login</p>
+                            </a>
+                        </div>
+                        <div class="filter">
+                            <a class="nav-link" href={{ route('register') }}>
+                                <p>Register</p>
+                            </a>
+                        </div>
+                    @endif
 
                 </div>
+                @if ($errors->any())
+                    <div>
+                        Errors:
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('message'))
+                    <p><b>{{ session('message') }}</b></p>
+                @endif
+
                 @yield('content')
             </div>
         </main>

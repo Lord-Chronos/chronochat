@@ -740,10 +740,10 @@ header #search-bar {
 	vertical-align: middle;
 }
 
-#posts-list .post,
+/* #posts-list .post,
 #results-list .post {
 	cursor: pointer;
-}
+} */
 
 #posts-list .post .post-description,
 #results-list .post .post-description {
