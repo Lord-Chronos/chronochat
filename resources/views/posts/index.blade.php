@@ -40,7 +40,6 @@
                 <p class="text-xl text-rose-800"> {{ $post->content }} </p>
                 @if ($post->image != null)
                     <div> <img class="h-22 w-22 ..." src="{{ asset("images/posts/$post->image") }}" /></div>
-
                 @endif
                 @if ($post->user_id == Auth::id())
                     <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
@@ -59,10 +58,30 @@
                     {{-- <h2>Comments</h2> --}}
                     @foreach ($post->comment as $comment)
                         <div class="post boxcomment">
-                            <li> <a
-                                    href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
-                                <b>:</b>
-                                {{ $comment->content }}
+                            <li>
+                                <div class="flex flex-col">
+
+                                    <div><a
+                                            href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
+                                        <b>:</b>
+                                        {{ $comment->content }}
+                                    </div>
+
+                                    @if ($comment->user_id == Auth::id())
+                                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div class="flex flex-row gap-5">
+                                                <div> <button class='button'><a href="{{ route('comments.edit', $comment->id) }}"
+                                                            class="btn btn-primary">Edit</a></button></div>
+                                                <div><button class='button' type="delete">Delete</button>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    @endif
+
+                                </div>
                             </li>
                         </div>
                         <br>
