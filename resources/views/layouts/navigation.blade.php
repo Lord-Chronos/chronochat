@@ -62,7 +62,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
-
+        
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
                 <button @click="open = ! open"
