@@ -46,21 +46,20 @@
                         @csrf
                         @method('DELETE')
                         <div class="grid grid-rows-1 grid-flow-col gap-0">
-                            <div><button class='button' type="delete">Delete Post</button></div>
                             <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}"
                                         class="btn btn-primary">Edit Post</a></button></div>
+                            <div><button class='button' type="delete">Delete Post</button></div>
+
                         </div>
                     </form>
                 @endif
                 <br>
                 <ol>
 
-                    {{-- <h2>Comments</h2> --}}
                     @foreach ($post->comment as $comment)
                         <div class="post boxcomment">
                             <li>
                                 <div class="flex flex-col">
-
                                     <div><a
                                             href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
                                         <b>:</b>
@@ -68,11 +67,12 @@
                                     </div>
 
                                     @if ($comment->user_id == Auth::id())
-                                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                                        <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <div class="flex flex-row gap-5">
-                                                <div> <button class='button'><a href="{{ route('comments.edit', $comment->id) }}"
+                                                <div> <button class='button'><a
+                                                            href="{{ route('comments.edit', $comment->id) }}"
                                                             class="btn btn-primary">Edit</a></button></div>
                                                 <div><button class='button' type="delete">Delete</button>
                                                 </div>
