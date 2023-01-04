@@ -114,10 +114,16 @@ class PostController extends Controller
             'content' => 'required|max:255',
             'user_id' => 'required|same:user_id_old',
         ]);
+        
         $post->title =  $request['title'];
         $post->content =  $request['content'];
-        // $p->user_id = Auth::id(); 
-        //$p->user_id = $request['user_id'];
+        if($request->hasFile('image')) {
+            //getting timestamp
+            $name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path().'/images/posts/', $name);
+            $post->image = $name;
+        }
+
         $post->save();
         session()->flash('message', 'Post was edited.');
         return redirect()->route('posts.index');
