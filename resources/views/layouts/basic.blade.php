@@ -17,17 +17,19 @@
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> --}}
         {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
         {{-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> --}}
-                @vite(['public/css/app.css', 'resources/js/app.js'])
+        @vite(['public/css/app.css', 'resources/js/app.js'])
 
         @livewireStyles
 
     </head>
-            {{-- @include('layouts.navigation') --}}
+                @if (Auth::check())
 
+    @include('layouts.navigation')
+@endif
     {{-- <header>        <p> Chrono Chat</p>    </header> --}}
 
 
-        {{-- <div class="topnav">
+    {{-- <div class="topnav">
             <a class="active" href={{ route('posts.index') }}>Home</a>
             <a href={{ route('users.show', Auth::id()) }}>User</a>
             <a href={{ route('posts.create') }}>Create Post</a>
@@ -56,7 +58,7 @@
     <!-- navigation bar ends here -->
 
     <body>
-    @livewireScripts
+        @livewireScripts
         {{-- <h1> @yield('header') </h1> --}}
         <main id="page-content">
 
@@ -110,7 +112,8 @@
                 @yield('content')
             </div>
         </main>
-{{-- @include('layouts.footer') --}}
+        {{-- @include('layouts.footer') --}}
 
     </body>
+
     </html>
