@@ -15,14 +15,13 @@ class ImageUploadController extends Controller
     public function store(ImageUploadRequest $request) 
     {
         $filename = time() . '.' . $request->image->extension();
-
-        $request->image->move(public_path('images'), $filename);
-        Auth()->user()->update(['image'=>$filename]);
         $user = user::findOrFail(Auth()->user()->id);
+
+        $request->image->move(public_path().'/images/users/', $filename);
         $user->image =  $filename;
         $user->save();
-        // save uploaded image filename here to your database
-        // $request->image->move(public_path('images'), $imageName);
+
+        session()->flash('message', 'Profile Picture Changed.');
         return back()
             ->with('message','Profile Picture Changed Successfully.')
             ->with('image', $filename); 
