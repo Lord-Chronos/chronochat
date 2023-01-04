@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImageUploadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,10 +22,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return route('posts.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [PostController::class, 'index'])->name('dashboard');
+Route::get('/', [PostController::class, 'index'])->name('dashboard');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
@@ -48,5 +51,11 @@ Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');;
 Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+
+Route::get('/image-upload', [ImageUploadController::class, 'index'])->name('image-upload.index');
+
+Route::post('/image-upload', [ImageUploadController::class, 'store'])->name('image-upload.post');
 
 require __DIR__.'/auth.php';

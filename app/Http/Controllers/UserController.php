@@ -40,7 +40,7 @@ class userController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         //dd(request()->all());
         $validated = $request->validate([
@@ -114,7 +114,10 @@ class userController extends Controller
         // // $p->user_id = Auth::id(); 
         // //$p->user_id = $request['user_id'];
         // $user->save();
-        // session()->flash('message', 'user was edited.');
+        $user = user::findOrFail($id);
+        $user->image =  $request['image'];
+        session()->flash('message', 'user was edited.');
+
         return redirect()->route('users.index');
     }
 

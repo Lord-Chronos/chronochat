@@ -94,7 +94,7 @@ p,
 li,
 input,
 a {
-	font-size: 1rem;
+	font-size: 1.25rem;
 	font-weight: normal;
 }
 
@@ -108,7 +108,7 @@ h1,
 
 h2,
 button {
-	font-size: 1rem;
+	font-size: 1.25rem;
 	font-weight: normal;
 	font-family: var(--title-font);
 }

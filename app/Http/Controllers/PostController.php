@@ -46,6 +46,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:255',
             'user_id' => 'required',
+            'image' => 'mimes:png,jpg,jpeg|max:2048',
+
         ]);
 
         $p = new Post;
@@ -53,6 +55,14 @@ class PostController extends Controller
         $p->content =  $request['content'];
         // $p->user_id = Auth::id(); 
         $p->user_id = $request['user_id'];
+        
+
+        if($request->hasFile('image')) {
+            //getting timestamp
+            $name = time() . '.' . $request->image->extension();
+            $request->image->move(public_path().'/images/posts/', $name);
+            $p->image = $name;
+        }
         $p->save();
 
         session()->flash('message', 'Post was created.');

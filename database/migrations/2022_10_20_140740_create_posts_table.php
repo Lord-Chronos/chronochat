@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('likes')->default('1');
             $table->integer('dislikes')->default('0');
             $table->integer('reposts')->default('0');
+            $table->string('image')->nullable();
 
         });
     }

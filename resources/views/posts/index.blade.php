@@ -7,17 +7,20 @@
 </header> --}}
 
     <ul>
-        <a href="{{ route('posts.create') }}">Create Post on Seperate Page</a>
-
         <div class="post box">
+            <div class="grid grid-rows-1 grid-flow-col gap-0">
 
-            <form method="post" action="{{ route('posts.store') }}">
-                @csrf
-                <p>Title<br><input type="text" name="title" value={{ old('title') }}></p>
-                <p>Content<br><input type="text" name="content" value={{ old('content') }}></p>
-                <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                <input type="submit" value="Submit">
-            </form>
+                <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+                    @csrf
+                    <h1 class="text-xl">Title<br><input type="text" name="title" value={{ old('title') }}></h1>
+                    <h1 class="text-xl">Content<br><input type="text" name="content" value={{ old('content') }}></h1>
+                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                    <input type="file" name="image" class="form-control">
+
+                    <input type="submit" value="Submit" class='button'>
+                </form>
+
+            </div>
         </div>
         <br>
 
@@ -30,12 +33,15 @@
                     </p>
                 </span>
 
-                <h1 class="post-title">
-                    <a href="{{ route('posts.show', $post->id) }}"><b>{{ $post->title }}</b></a>
-
+                <h1 class="post-title ">
+                    <a href="{{ route('posts.show', $post->id) }}"><b
+                            class="text-2xl text-rose-800">{{ $post->title }}</b></a>
                 </h1>
+                <p class="text-xl text-rose-800"> {{ $post->content }} </p>
+                @if ($post->image != null)
+                    <div> <img class="h-22 w-22 ..." src="{{ asset("images/posts/$post->image") }}" /></div>
 
-                {{ $post->content }}
+                @endif
                 @if ($post->user_id == Auth::id())
                     <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
                         @csrf
@@ -48,14 +54,11 @@
                     </form>
                 @endif
                 <br>
-
-
                 <ol>
 
                     {{-- <h2>Comments</h2> --}}
                     @foreach ($post->comment as $comment)
                         <div class="post boxcomment">
-
                             <li> <a
                                     href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
                                 <b>:</b>
@@ -72,13 +75,9 @@
                         <input type="hidden" name="post_id" value="{{ $post->id }}">
                         <input type="submit" value="Comment" style='display:inline' class='button'>
                     </form>
-
                 </ol>
-
                 <br>
-
             </div>
-
             <br>
         @endforeach
 
@@ -86,7 +85,7 @@
     </ul>
     <div class="flex justify-between ...">
         <div></div>
-        <div class="flex justify-between">{{ $posts->links('pagination::tailwind') }}</div>
+        <div class="flex justify-between">{{ $posts->links('pagination::simple-tailwind') }}</div>
         <div></div>
     </div>
 

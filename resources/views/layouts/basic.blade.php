@@ -16,21 +16,23 @@
         <!-- Bootstrap CSS -->
         {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> --}}
         {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-        @vite('public/css/app.css')
+        {{-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> --}}
+                @vite(['public/css/app.css', 'resources/js/app.js'])
+
         @livewireStyles
 
     </head>
+            {{-- @include('layouts.navigation') --}}
 
-    <header>
-        <p> Chrono Chat</p>
+    {{-- <header>        <p> Chrono Chat</p>    </header> --}}
+
+
         {{-- <div class="topnav">
             <a class="active" href={{ route('posts.index') }}>Home</a>
             <a href={{ route('users.show', Auth::id()) }}>User</a>
             <a href={{ route('posts.create') }}>Create Post</a>
             <a href="#about">About</a>
         </div> --}}
-    </header>
     <!-- navigation bar -->
 
     {{-- <div class="topnav">
@@ -55,7 +57,7 @@
 
     <body>
     @livewireScripts
-        <h1> @yield('header') </h1>
+        {{-- <h1> @yield('header') </h1> --}}
         <main id="page-content">
 
             <div id="posts-list">
@@ -67,7 +69,7 @@
                             <a class="nav-link" href={{ route('posts.index') }}>Home</a>
                         </div>
 
-                        <div class="filter active">
+                        <div class="filter">
                             <a class="nav-link" href={{ route('users.show', Auth::id()) }}>User</a>
                         </div>
 
