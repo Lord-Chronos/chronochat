@@ -72,7 +72,8 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = comment::find($id);
+        return view('comments.edit', compact('comment'));
     }
 
     /**
@@ -84,7 +85,18 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $request->request->add(['user_id' => Auth::id()]);
+        $request->request->add(['user_id_old' => $comment->user_id]);
+        $validated = $request->validate([
+            'content' => 'required|max:255',
+            'user_id' => 'required|same:user_id_old',
+        ]);
+        $comment->content =  $request['content'];
+
+        $comment->save();
+        session()->flash('message', 'Comment was edited.');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -95,6 +107,9 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $commet = Comment::findOrFail($id);
+        $commet->delete();
+        session()->flash('message', 'Comment was deleted.');
+        return redirect()->route('posts.index');
     }
 }
