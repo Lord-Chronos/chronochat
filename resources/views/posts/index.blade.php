@@ -41,17 +41,21 @@
                 @if ($post->image != null)
                     <div> <img class="h-22 w-22 ..." src="{{ asset("images/posts/$post->image") }}" /></div>
                 @endif
-                @if ($post->user_id == Auth::id())
-                    <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
-                        @csrf
-                        @method('DELETE')
-                        <div class="grid grid-rows-1 grid-flow-col gap-0">
-                            <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}"
-                                        class="btn btn-primary">Edit Post</a></button></div>
-                            <div><button class='button' type="delete">Delete Post</button></div>
+                @if (Auth::check())
+                    @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('delete_all_posts', 1))
+                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <div class="grid grid-rows-1 grid-flow-col gap-0">
+                                @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('edit_all_posts', 1))
+                                    <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}"
+                                                class="btn btn-primary">Edit Post</a></button></div>
+                                @endif
+                                <div><button class='button' type="delete">Delete Post</button></div>
 
-                        </div>
-                    </form>
+                            </div>
+                        </form>
+                    @endif
                 @endif
                 <br>
                 <ol>
@@ -65,20 +69,23 @@
                                         <b>:</b>
                                         {{ $comment->content }}
                                     </div>
+                                    @if (Auth::check())
+                                        @if ($comment->user_id == Auth::id() ||  Auth::user()->roles->contains('delete_all_posts', 1))
+                                            <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <div class="flex flex-row gap-5">
+                                                    @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('edit_all_posts', 1))
+                                                        <div> <button class='button'><a
+                                                                    href="{{ route('comments.edit', $comment->id) }}"
+                                                                    class="btn btn-primary">Edit</a></button></div>
+                                                    @endif
+                                                    <div><button class='button' type="delete">Delete</button>
+                                                    </div>
 
-                                    @if ($comment->user_id == Auth::id())
-                                        <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <div class="flex flex-row gap-5">
-                                                <div> <button class='button'><a
-                                                            href="{{ route('comments.edit', $comment->id) }}"
-                                                            class="btn btn-primary">Edit</a></button></div>
-                                                <div><button class='button' type="delete">Delete</button>
                                                 </div>
-
-                                            </div>
-                                        </form>
+                                            </form>
+                                        @endif
                                     @endif
 
                                 </div>

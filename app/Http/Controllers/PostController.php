@@ -107,13 +107,27 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
-        $request->request->add(['user_id' => Auth::id()]);
+        $request->request->add(['user_id' =>  Auth::id()]);
         $request->request->add(['user_id_old' => $post->user_id]);
+        if (Auth::user()->roles->contains('edit_all_posts', 1)) {
+            $validated = $request->validate([
+                'title' => 'required|max:255',
+                'content' => 'required|max:255',
+            ]);
+        }
+        else{
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required|max:255',
             'user_id' => 'required|same:user_id_old',
-        ]);
+            
+        ],
+        [
+            'user_id.same' => 'You are not the owner or Admin',
+        ]);}
+
+
+    
         
         $post->title =  $request['title'];
         $post->content =  $request['content'];
