@@ -22,40 +22,9 @@
         @livewireStyles
 
     </head>
-                @if (Auth::check())
-
-    @include('layouts.navigation')
-@endif
-    {{-- <header>        <p> Chrono Chat</p>    </header> --}}
-
-
-    {{-- <div class="topnav">
-            <a class="active" href={{ route('posts.index') }}>Home</a>
-            <a href={{ route('users.show', Auth::id()) }}>User</a>
-            <a href={{ route('posts.create') }}>Create Post</a>
-            <a href="#about">About</a>
-        </div> --}}
-    <!-- navigation bar -->
-
-    {{-- <div class="topnav">
-
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link" href={{ route('posts.index') }}>Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={{ route('users.show', Auth::id()) }}>User</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href={{ route('posts.create') }}>Create Post</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-            </ul>
-
-        </div> --}}
-    <!-- navigation bar ends here -->
+    @if (Auth::check())
+        @include('layouts.navigation')
+    @endif
 
     <body>
         @livewireScripts
@@ -95,11 +64,11 @@
 
                 </div>
                 @if ($errors->any())
-                    <div>
+                    <div class="text-rose-700">
                         Errors:
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                <li  >{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
