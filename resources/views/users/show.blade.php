@@ -11,21 +11,14 @@
         </div>
         <br> --}}
         <div class="flex flex-row justify-start ">
-
             <div class="m-auto flex flex-row ">
-
                 <div class="post box">
-
                     <div>
                         <p><b>Name: </b>{{ $user->name }} </p>
                         <p><b>ID: </b>{{ $user->id }}</p>
                         <p><b>Email: </b>{{ $user->email }}</p>
                     </div>
-
                     <div></div>
-
-
-
                     <div>
                         <img class=" m-auto inline-block align-middle object-fill h-96 w-96  rounded-full border border-gray-100 shadow-sm"
                             src="{{ asset("images/users/$user->image") }}" alt="user image" />
@@ -36,8 +29,6 @@
 
                             <form action="{{ route('image-upload.post') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-
-
                                 <div class="col-md-6">
                                     <input type="file" name="image" class="form-control">
                                     @if ($errors->has('image'))
@@ -48,12 +39,9 @@
                                 <div class="col-md-6">
                                     <button type="submit" class='button'>Upload Profile Pic</button>
                                 </div>
-
-
                             </form>
                         @endif
                     </div>
-
                 </div>
             </div>
 
@@ -62,9 +50,11 @@
         <b> POSTS </b>
 
         @foreach ($posts as $post)
-            <div class="post box">
 
-                <span class="post-header">
+            <div class="post box">
+            @include('posts.info')
+
+                {{-- <span class="post-header">
                     <p>
                         {{ $post->created_at }}
                     </p>
@@ -90,7 +80,7 @@
 
                         </div>
                     </form>
-                @endif
+                @endif --}}
             </div>
             <br>
         @endforeach

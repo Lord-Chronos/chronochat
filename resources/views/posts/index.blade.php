@@ -2,9 +2,6 @@
 @section('title', 'Posts - Chronochat')
 @section('header', 'Home')
 @section('content')
-    {{-- <header>
-    <h1>Posts for the site:</h1>
-</header> --}}
 
     <ul>
         <div class="post box">
@@ -37,53 +34,35 @@
                 <br>
                 <ol>
 
-                @foreach ($post->comment as $comment)
-                    <div class="post boxcomment">
-                        <li>
-                            <div class="flex flex-col">
-                                <div><a
-                                        href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
-                                    <b>:</b>
-                                    {{ $comment->content }}
+                    @foreach ($post->comment as $comment)
+                        <div class="post boxcomment">
+                            <li>
+                                <div class="flex flex-col">
+                                    <div><a
+                                            href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
+                                        <b>:</b>
+                                        {{ $comment->content }}
+                                    </div>
+                                    @include('posts.commentsform')
+
                                 </div>
-                                @include('posts.commentsform')
-                                {{-- @if (Auth::check())
-                                    @if ($comment->user_id == Auth::id() || Auth::user()->roles->contains('delete_all_posts', 1))
-                                        <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <div class="flex flex-row gap-5">
-                                                @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('edit_all_posts', 1))
-                                                    <div> <button class='button'><a
-                                                                href="{{ route('comments.edit', $comment->id) }}"
-                                                                class="btn btn-primary">Edit</a></button></div>
-                                                @endif
-                                                <div><button class='button' type="delete">Delete</button>
-                                                </div>
-
-                                            </div>
-                                        </form>
-                                    @endif
-                                @endif --}}
-
-                            </div>
-                        </li>
-                    </div>
-                    <br>
-                @endforeach
-                {{-- <livewire:counter /> --}}
-                <form method="post" action="{{ route('comments.store') }}">
-                    @csrf
-                    <input type="text" name="content" placeholder="Comment" value={{ old('content') }}>
-                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                    <input type="hidden" name="post_id" value="{{ $post->id }}">
-                    <input type="submit" value="Comment" style='display:inline' class='button'>
-                </form>
-            </ol>
+                            </li>
+                        </div>
+                        <br>
+                    @endforeach
+                    {{-- <livewire:counter /> --}}
+                    <form method="post" action="{{ route('comments.store') }}">
+                        @csrf
+                        <input type="text" name="content" placeholder="Comment" value={{ old('content') }}>
+                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                        <input type="hidden" name="post_id" value="{{ $post->id }}">
+                        <input type="submit" value="Comment" style='display:inline' class='button'>
+                    </form>
+                </ol>
+                <br>
+            </div>
             <br>
-        </div>
-        <br>
-    @endforeach
+        @endforeach
 
     </ul>
     </ul>
