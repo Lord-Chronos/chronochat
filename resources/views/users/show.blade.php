@@ -46,26 +46,32 @@
             <div class="post box">
 
                 <span class="post-header">
-                    <p> Posted by <a href="{{ route('users.show', $post->user_id) }} "><b>{{ $post->user->name }}</b></a>
+                    <p>
                         {{ $post->created_at }}
                     </p>
                 </span>
 
-                <h1 class="post-title">
-                    <a href="{{ route('posts.show', $post->id) }}"><b>{{ $post->title }}</b></a>
-
+                <h1 class="post-title ">
+                    <a href="{{ route('posts.show', $post->id) }}"><b
+                            class="text-2xl text-rose-800">{{ $post->title }}</b></a>
                 </h1>
-                <p>{{ $post->content }} </p>
+                <p class="text-xl text-rose-800"> {{ $post->content }} </p>
+                @if ($post->image != null)
+                    <div> <img class="h-22 w-22 ..." src="{{ asset("images/posts/$post->image") }}" /></div>
+                @endif
+                @if ($post->user_id == Auth::id())
+                    <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <div class="grid grid-rows-1 grid-flow-col gap-0">
+                            <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}"
+                                        class="btn btn-primary">Edit Post</a></button></div>
+                            <div><button class='button' type="delete">Delete Post</button></div>
 
-            </div>
-            @if ($post->user_id == Auth::id())
-                <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Delete</button>
-                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
-                </form>
-            @endif
+                        </div>
+                    </form>
+                @endif
+                </div>
             <br>
         @endforeach
 

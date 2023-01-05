@@ -22,6 +22,8 @@ class UserTableSeeder extends Seeder
         $u->name = "Tester Test";
         $u->email = "testing@test.com";
         $u->password = "password";
+        $u->role_id = "1";
+
         $u->save();
         
         User::factory()->count(5)->has(Post::factory()->count(3))->create();
