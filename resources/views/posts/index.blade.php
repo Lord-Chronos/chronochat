@@ -12,8 +12,10 @@
 
                 <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <h1 class="text-xl">Title<br><input type="text" name="title" placeholder="Title" value={{ old('title') }}></h1>
-                    <h1 class="text-xl">Content<br><input type="text" name="content" placeholder="Content" value={{ old('content') }}></h1>
+                    <h1 class="text-xl">Title<br><input type="text" name="title" placeholder="Title"
+                            value={{ old('title') }}></h1>
+                    <h1 class="text-xl">Content<br><input type="text" name="content" placeholder="Content"
+                            value={{ old('content') }}></h1>
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <input type="file" name="image" class="form-control">
 
@@ -25,38 +27,13 @@
         <br>
 
         @foreach ($posts as $post)
+            {{-- @include('layouts.posts') --}}
             <div class="post box">
 
-                <span class="post-header">
-                    <p> Posted by <a href="{{ route('users.show', $post->user_id) }} "><b>{{ $post->user->name }}</b></a>
-                        {{ $post->created_at }}
-                    </p>
-                </span>
+                @include('posts.info')
 
-                <h1 class="post-title ">
-                    <a href="{{ route('posts.show', $post->id) }}"><b
-                            class="text-2xl text-rose-800">{{ $post->title }}</b></a>
-                </h1>
-                <p class="text-xl text-rose-800"> {{ $post->content }} </p>
-                @if ($post->image != null)
-                    <div> <img class="h-22 w-22 ..." src="{{ asset("images/posts/$post->image") }}" /></div>
-                @endif
-                @if (Auth::check())
-                    @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('delete_all_posts', 1))
-                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <div class="grid grid-rows-1 grid-flow-col gap-0">
-                                @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('edit_all_posts', 1))
-                                    <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}"
-                                                class="btn btn-primary">Edit Post</a></button></div>
-                                @endif
-                                <div><button class='button' type="delete">Delete Post</button></div>
+                @include('layouts.form')
 
-                            </div>
-                        </form>
-                    @endif
-                @endif
                 <br>
                 <ol>
 
@@ -70,7 +47,7 @@
                                         {{ $comment->content }}
                                     </div>
                                     @if (Auth::check())
-                                        @if ($comment->user_id == Auth::id() ||  Auth::user()->roles->contains('delete_all_posts', 1))
+                                        @if ($comment->user_id == Auth::id() || Auth::user()->roles->contains('delete_all_posts', 1))
                                             <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
                                                 @csrf
                                                 @method('DELETE')
