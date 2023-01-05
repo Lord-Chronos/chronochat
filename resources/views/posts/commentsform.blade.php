@@ -4,7 +4,7 @@
             @csrf
             @method('DELETE')
             <div class="flex flex-row gap-5">
-                @if ($post->user_id == Auth::id() || Auth::user()->roles->contains('edit_all_posts', 1))
+                @if ($comment->user_id == Auth::id() || Auth::user()->roles->contains('edit_all_posts', 1))
                     <div> <button class='button'><a
                                 href="{{ route('comments.edit', $comment->id) }}"
                                 class="btn btn-primary">Edit</a></button></div>

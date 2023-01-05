@@ -29,7 +29,7 @@
 
                 @include('posts.info')
 
-                @include('layouts.form')
+                @include('posts.postsform')
 
                 <br>
                 <ol>
