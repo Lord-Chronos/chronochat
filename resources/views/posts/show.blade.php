@@ -22,9 +22,10 @@
             @csrf
             @method('DELETE')
             <div class="grid grid-rows-1 grid-flow-col gap-0">
-                <div><button class='button' type="delete">Delete Post</button></div>
                 <div><button class='button'><a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit
                             Post</a></button></div>
+                <div><button class='button' type="delete">Delete Post</button></div>
+
             </div>
         </form>
     @endif
