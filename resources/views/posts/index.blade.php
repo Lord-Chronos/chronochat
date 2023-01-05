@@ -12,8 +12,8 @@
 
                 <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <h1 class="text-xl">Title<br><input type="text" name="title" value={{ old('title') }}></h1>
-                    <h1 class="text-xl">Content<br><input type="text" name="content" value={{ old('content') }}></h1>
+                    <h1 class="text-xl">Title<br><input type="text" name="title" placeholder="Title" value={{ old('title') }}></h1>
+                    <h1 class="text-xl">Content<br><input type="text" name="content" placeholder="Content" value={{ old('content') }}></h1>
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <input type="file" name="image" class="form-control">
 
@@ -96,7 +96,7 @@
                     {{-- <livewire:counter /> --}}
                     <form method="post" action="{{ route('comments.store') }}">
                         @csrf
-                        <input type="text" name="content" value={{ old('content') }}>
+                        <input type="text" name="content" placeholder="Comment" value={{ old('content') }}>
                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                         <input type="hidden" name="post_id" value="{{ $post->id }}">
                         <input type="submit" value="Comment" style='display:inline' class='button'>

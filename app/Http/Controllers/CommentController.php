@@ -88,10 +88,20 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
         $request->request->add(['user_id' => Auth::id()]);
         $request->request->add(['user_id_old' => $comment->user_id]);
+        if (Auth::user()->roles->contains('edit_all_posts', 1)) {
+            $validated = $request->validate([
+                'content' => 'required|max:255',
+            ]);
+        }
+        else{
         $validated = $request->validate([
             'content' => 'required|max:255',
             'user_id' => 'required|same:user_id_old',
-        ]);
+            
+        ],
+        [
+            'user_id.same' => 'You are not the owner or Admin',
+        ]);}
         $comment->content =  $request['content'];
 
         $comment->save();
