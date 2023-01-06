@@ -17,6 +17,19 @@ class User extends Authenticatable
     public function comment(){
         return $this->hasMany(Comment::class);
     }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    // public function image(){
+    //     return $this->belongsTo(Image::class);
+    // }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
     /**
      * The attributes that are mass assignable.
      *

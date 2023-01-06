@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Image;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -46,6 +48,11 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        $user->roles()->attach(2); 
+
+        $i = new Image;
+        $i->url = "users/non.jpg";
+        $user->image()->save($i);
 
         Auth::login($user);
 
