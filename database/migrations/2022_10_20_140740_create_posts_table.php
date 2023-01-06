@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('likes')->default('1');
             $table->integer('dislikes')->default('0');
             $table->integer('reposts')->default('0');
-            $table->string('image')->nullable();
+            $table->foreignId('image_id')->nullable()->references('id')->on('images')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }

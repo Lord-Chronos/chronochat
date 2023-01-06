@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\Image;
+
 use Auth;
 use Illuminate\Http\Request;
 
@@ -59,9 +61,13 @@ class PostController extends Controller
 
         if($request->hasFile('image')) {
             //getting timestamp
+            $i = new Image;
+
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);
-            $p->image = $name;
+            $i->url = "posts/$name";
+            $i->save();
+            $p->image_id = $i->id;
         }
         $p->save();
 
@@ -133,9 +139,12 @@ class PostController extends Controller
         $post->content =  $request['content'];
         if($request->hasFile('image')) {
             //getting timestamp
+            $i = new Image;
+
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);
-            $post->image = $name;
+            $i->url = "posts/$name!";
+            $p->image_id = $i->id;
         }
 
         $post->save();

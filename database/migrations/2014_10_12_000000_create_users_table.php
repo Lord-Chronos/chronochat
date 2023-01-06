@@ -8,8 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
+     *     * @return void
      */
     public function up()
     {
@@ -21,7 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('image')->default('non.jpg');
+            $table->foreignId('image_id')->nullable()->default(1)->references('id')->on('images')->onDelete('cascade')->onUpdate('cascade');
             $table->rememberToken();
         });
     }

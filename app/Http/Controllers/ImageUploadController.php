@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ImageUploadRequest;
 use App\Models\User;
+use App\Models\Image;
 
 class ImageUploadController extends Controller
 {
@@ -14,16 +15,21 @@ class ImageUploadController extends Controller
 
     public function store(ImageUploadRequest $request) 
     {
-        $filename = time() . '.' . $request->image->extension();
-        $user = user::findOrFail(Auth()->user()->id);
+        $i = new Image;
 
-        $request->image->move(public_path().'/images/users/', $filename);
-        $user->image =  $filename;
+        $user = User::findOrFail(Auth()->user()->id);
+
+        $name = time() . '.' . $request->image->extension();
+        $request->image->move(public_path().'/images/users/', $name);
+        $i->url = "users/$name";
+        $i->save();
+        $dd;
+        $user->image_id = $i->id;
         $user->save();
 
         session()->flash('message', 'Profile Picture Changed.');
         return back()
             ->with('message','Profile Picture Changed Successfully.')
-            ->with('image', $filename); 
+            ->with('image', $name); 
     }
 }

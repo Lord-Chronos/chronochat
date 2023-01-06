@@ -22,8 +22,8 @@
             </div>
         </div>
         <br>
-
         @foreach ($posts as $post)
+
             {{-- @include('layouts.posts') --}}
             <div class="post box">
 

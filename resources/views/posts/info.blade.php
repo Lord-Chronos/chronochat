@@ -8,6 +8,6 @@
     <a href="{{ route('posts.show', $post->id) }}"><b class="text-2xl text-sky-300">{{ $post->title }}</b></a>
 </h1>
 <p class="text-xl text-sky-300"> {{ $post->content }} </p>
-@if ($post->image != null)
-    <div> <img class="h-22 w-22 ..." src="{{ asset("images/posts/$post->image") }}" /></div>
+@if ($post->image_id != null)
+    <div> <img class="h-22 w-22 ..." src="{{ asset('images/' .$post->image->url) }}" /></div>
 @endif
