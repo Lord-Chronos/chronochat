@@ -57,27 +57,19 @@ class PostController extends Controller
         $p->content =  $request['content'];
         // $p->user_id = Auth::id(); 
         $p->user_id = $request['user_id'];
-        
+        $p->save();
 
         if($request->hasFile('image')) {
-            //getting timestamp
             $i = new Image;
-
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);
             $i->url = "posts/$name";
-            // $i->imageable_type = "post";
-            // $i->imageable_id = "20";
-            // $p->image_id = $i->id;
-        }
-        $p->save();
 
-        $p->image()->save($i);
+            $p->image()->save($i);
+        }
 
         session()->flash('message', 'Post was created.');
         return redirect()->route('posts.index');
-        //return "Pased Validation";
-        //return redirect('/posts')->with('success', 'Game is successfully saved');
     }
     
 
@@ -135,22 +127,16 @@ class PostController extends Controller
             'user_id.same' => 'You are not the owner or Admin',
         ]);}
 
-
-    
-        
         $post->title =  $request['title'];
         $post->content =  $request['content'];
         if($request->hasFile('image')) {
             //getting timestamp
             $i = new Image;
-
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);
-            $i->url = "posts/$name!";
-            $i->imageable_type = "post";
-            $i->imageable_id = $p->id;
-            $p->image_id = $i->id;
-            $i->save();
+            $i->url = "posts/$name";
+
+            $p->image()->save($i);
         }
 
         $post->save();

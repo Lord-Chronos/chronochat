@@ -15,12 +15,12 @@ class ImageTableSeeder extends Seeder
      */
     public function run()
     {
-        $i = new Image;
-        $i->id = "1";
-        $i->url = "users/non.jpg";
-        $i->imageable_id = "1";
-        $i->imageable_type = "user";
+        // $i = new Image;
+        // $i->id = "1";
+        // $i->url = "users/non.jpg";
+        // $i->imageable_id = "1";
+        // $i->imageable_type = "user";
 
-        $i->save();
+        // $i->save();
     }
 }
