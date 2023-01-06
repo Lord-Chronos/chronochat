@@ -68,7 +68,7 @@ class PostController extends Controller
             $i->url = "posts/$name";
             // $i->imageable_type = "post";
             // $i->imageable_id = "20";
-            $p->image_id = $i->id;
+            // $p->image_id = $i->id;
         }
         $p->save();
 

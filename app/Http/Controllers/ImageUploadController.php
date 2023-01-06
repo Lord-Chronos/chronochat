@@ -22,11 +22,12 @@ class ImageUploadController extends Controller
         $name = time() . '.' . $request->image->extension();
         $request->image->move(public_path().'/images/users/', $name);
         $i->url = "users/$name";
-        $i->save();
-        $dd;
-        $user->image_id = $i->id;
-        $user->save();
 
+        // $user->image_id = $i->id;
+        $user->save();
+        $user->image()->save($i);
+
+        
         session()->flash('message', 'Profile Picture Changed.');
         return back()
             ->with('message','Profile Picture Changed Successfully.')
