@@ -22,7 +22,7 @@
                     <div></div>
                     <div>
                         <img class=" m-auto inline-block align-middle object-fill h-96 w-96  rounded-full border border-gray-100 shadow-sm"
-                            src="{{ asset('images/'.$user->image->url) }}" alt="user image" />
+                            src="{{ asset('images/'.$user->imageable) }}" alt="user image" />
                     </div>
                     <div class="row">
 

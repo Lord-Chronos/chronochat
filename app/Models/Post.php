@@ -15,7 +15,12 @@ class Post extends Model
     public function comment(){
         return $this->hasMany(Comment::class);
     }
-    public function image(){
-        return $this->belongsTo(Image::class);
+    // public function image(){
+    //     return $this->belongsTo(Image::class);
+    // }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

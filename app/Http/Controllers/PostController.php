@@ -66,10 +66,13 @@ class PostController extends Controller
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);
             $i->url = "posts/$name";
-            $i->save();
+            // $i->imageable_type = "post";
+            // $i->imageable_id = "20";
             $p->image_id = $i->id;
         }
         $p->save();
+
+        $p->image()->save($i);
 
         session()->flash('message', 'Post was created.');
         return redirect()->route('posts.index');
@@ -144,7 +147,10 @@ class PostController extends Controller
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);
             $i->url = "posts/$name!";
+            $i->imageable_type = "post";
+            $i->imageable_id = $p->id;
             $p->image_id = $i->id;
+            $i->save();
         }
 
         $post->save();

@@ -18,6 +18,8 @@ class ImageTableSeeder extends Seeder
         $i = new Image;
         $i->id = "1";
         $i->url = "users/non.jpg";
+        $i->imageable_id = "1";
+        $i->imageable_type = "user";
 
         $i->save();
     }
