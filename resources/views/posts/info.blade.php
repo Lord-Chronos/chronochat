@@ -9,5 +9,5 @@
 </h1>
 <p class="text-xl text-sky-300"> {{ $post->content }} </p>
 @if ($post->image != null)
-    <div> <img class="h-22 w-22 ..." src="{{ asset('images/' . $post->image->url) }}" /></div>
+    <div> <img class="h-22 w-22 ..." src="{{ asset('images/' . $post->image->url) }}" alt="Image for Post"/></div>
 @endif

@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use Auth;
 use Illuminate\Http\Request;
+use App\Notifications\PostComment;
 
 class CommentController extends Controller
 {
@@ -47,7 +48,8 @@ class CommentController extends Controller
         $c->user_id = $request['user_id'];
         $c->post_id = $request['post_id'];
         $c->save();
-
+        $p = Post::find($c->post_id);
+        $p->user->notify(new PostComment($p));
         session()->flash('message', 'Comment was created.');
         // return redirect()->route('posts.index');
         return redirect()->back();
@@ -72,7 +74,7 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        $comment = comment::find($id);
+        $comment = Comment::find($id);
         return view('comments.edit', compact('comment'));
     }
 
