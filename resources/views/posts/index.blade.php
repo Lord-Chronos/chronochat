@@ -23,24 +23,17 @@
         </div>
         <br>
         @foreach ($posts as $post)
-
-            {{-- @include('layouts.posts') --}}
             <div class="post box">
 
                 @include('posts.info')
-
                 @include('posts.postsform')
-
                 <br>
                 <ol>
-
                     @foreach ($post->comment as $comment)
                         <div class="post boxcomment">
                             <li>
                                 <div class="flex flex-col">
-                                    <div><a
-                                            href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a>
-                                        <b>:</b>
+                                    <div><a href="{{ route('users.show', $comment->user->id) }}"><b>{{ $comment->user->name }}</b></a><b>:</b>
                                         {{ $comment->content }}
                                     </div>
                                     @include('posts.commentsform')
@@ -63,16 +56,11 @@
             </div>
             <br>
         @endforeach
+    </ul>
 
-    </ul>
-    </ul>
     <div class="flex justify-between ...">
         <div></div>
         <div class="flex justify-between">{{ $posts->links('pagination::simple-tailwind') }}</div>
         <div></div>
     </div>
-
-    {{-- {{ $posts->links() }} --}}
-
-
 @endsection

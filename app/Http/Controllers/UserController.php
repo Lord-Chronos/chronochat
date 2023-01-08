@@ -58,8 +58,6 @@ class userController extends Controller
 
         session()->flash('message', 'user was created.');
         return redirect()->route('users.index');
-        //return "Pased Validation";
-        //return redirect('/users')->with('success', 'Game is successfully saved');
     }
     
 
@@ -72,8 +70,6 @@ class userController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        //$posts = User::findOrFail($id)->posts;
-        //$posts = DB::table('posts')->where('user_id', auth()->id())->get();
         $posts = Post::whereBelongsTo($user)->get();
         $comments = Comment::whereBelongsTo($user)->get();
         //dd($comments);
@@ -133,7 +129,5 @@ class userController extends Controller
         $user->delete();
         session()->flash('message', 'user was deleted.');
         return redirect()->route('users.index');
-
-        // return ('users.show')->with('message', 'user was deleted'); 
     }
 }

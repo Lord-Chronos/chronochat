@@ -25,6 +25,7 @@ class ImageUploadController extends Controller
 
         // $user->image_id = $i->id;
         $user->save();
+        $user->image()->delete();
         $user->image()->save($i);
 
         

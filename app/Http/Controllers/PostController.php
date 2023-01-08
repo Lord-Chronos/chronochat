@@ -18,9 +18,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        
-        // $posts = Post::get()->sortByDesc('updated_at');
-        //$posts = Post::orderBy('created_at','asc')->get();
         $posts = Post::orderBy('created_at','desc')->paginate(10);
         return view('posts.index', ['posts' => $posts]);
     }
@@ -129,7 +126,6 @@ class PostController extends Controller
         $post->title =  $request['title'];
         $post->content =  $request['content'];
         if($request->hasFile('image')) {
-            //getting timestamp
             $i = new Image;
             $name = time() . '.' . $request->image->extension();
             $request->image->move(public_path().'/images/posts/', $name);

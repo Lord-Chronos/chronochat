@@ -9,7 +9,6 @@
                                 Post</a></button></div>
                 @endif
                 <div><button class='button' type="delete">Delete Post</button></div>
-
             </div>
         </form>
     @endif

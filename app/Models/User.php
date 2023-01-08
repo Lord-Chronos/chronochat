@@ -14,6 +14,7 @@ class User extends Authenticatable
     public function post(){
         return $this->hasMany(Post::class);
     }
+    
     public function comment(){
         return $this->hasMany(Comment::class);
     }
@@ -30,6 +31,8 @@ class User extends Authenticatable
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    
     /**
      * The attributes that are mass assignable.
      *
